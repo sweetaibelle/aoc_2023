@@ -39,9 +39,17 @@
 
 namespace day_3_part_1
 {
+    struct obj_symbol
+    {
+        char symbol;
+        u_int32_t x;
+        u_int32_t y;
+    };
+
     void run()
     {
         std::ifstream my_file("inputs/day_3.txt");
+        std::vector<obj_symbol> symbols;
 
         if (!my_file.is_open())
         {
@@ -55,33 +63,41 @@ namespace day_3_part_1
         if (my_file.is_open())
         {
             u_int32_t line_count = 0;
+
             while (my_file)
             {
                 std::string line;
                 std::getline(my_file, line);
+
                 if (line != "")
                 {
-                    std::cout << "Line " << line_count << ": " << line << std::endl;
+                    std::cout << "Line " << line_count << ": " << line << "\n";
                     // Do something
+                    u_int32_t char_count = 0;
+
                     for (auto c : line)
                     {
                         if (c == '.')
                         {
-                            continue;
+                            // Do nothing.
                         }
                         else if (c >= '0' && c <= '9')
                         {
-                            std::cout << "Number found: " << c << std::endl;
+                            std::cout << "Number found: " << c << " at x:" << char_count << " y:" << line_count << "\n";
                         }
                         else
                         {
-                            std::cout << "Symbol found: " << c << std::endl;
+                            symbols.push_back({c, char_count, line_count});
+                            std::cout << "Symbol found: " << c << " at x:" << char_count << " y:" << line_count << "\n";
                         }
+                        char_count++;
                     }
                     line_count++;
                 }
             }
         }
+
+        std::cout << "Total symbols: " << symbols.size() << std::endl;
 
         return;
     }
