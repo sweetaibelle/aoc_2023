@@ -1,0 +1,3 @@
+This is just a repo where I'm storing my Advent of Code 2023 code.
+
+This code's undoubtedly going to be not the best quality, since I'm really just coding until I solve the day in question...
