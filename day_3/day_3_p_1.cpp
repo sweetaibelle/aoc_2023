@@ -50,8 +50,8 @@ namespace day_3_part_1
     {
         u_int32_t number = 0;
         u_int32_t length = 0;
-        u_int32_t x =0;
-        u_int32_t y= 0;
+        u_int32_t x = 0;
+        u_int32_t y = 0;
         bool touched = false;
     };
 
@@ -76,6 +76,36 @@ namespace day_3_part_1
     void print_num_box(u_int32_t idx)
     {
         std::cout << "Number: " << number_boxes[idx].number << " at x:" << number_boxes[idx].x << " y:" << number_boxes[idx].y << "\n";
+    }
+
+    void box_collision(u_int32_t idx)
+    {
+        number_boxes[idx].touched = false;
+        int32_t start_x = number_boxes[idx].x - 1;
+        int32_t start_y = number_boxes[idx].y - 1;
+        int32_t end_x = start_x + (number_boxes[idx].length - 1) + 2;
+        int32_t end_y = start_y + 2;
+        if (start_x < 0)
+            start_x = 0;
+        if (start_y < 0)
+            start_y = 0;
+
+        std::cout << "Possible collision box: " << start_x << " " << start_y << " " << end_x << " " << end_y << "\n";
+
+        for(u_int32_t x = static_cast<u_int32_t>(start_x); x < static_cast<u_int32_t>(end_x); x++)
+        {
+            for(u_int32_t y = static_cast<u_int32_t>(start_y); y < static_cast<u_int32_t>(end_y); y++)
+            {
+                for(auto symbol : symbols)
+                {
+                    if (symbol.x == x && symbol.y == y)
+                    {
+                        std::cout << "Collision at x:" << x << " y:" << y << " symbol:" << symbol.symbol << "\n";
+                        number_boxes[idx].touched = true;
+                    }
+                }
+            }
+        }
     }
 
     void run()
@@ -106,7 +136,7 @@ namespace day_3_part_1
                     // Do something
                     u_int32_t char_count = 0;
                     bool reading_number = false;
-                    u_int32_t cur_number = 0, cur_num_len = 0;
+                    u_int32_t cur_number = 0, cur_num_len = 0, cur_num_x = 0, cur_num_y = 0;
 
                     for (auto c : line)
                     {
@@ -114,10 +144,12 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                add_num_box(cur_number, cur_num_len, char_count, line_count);
+                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
                                 print_num_box(number_boxes.size() - 1);
                                 cur_number = 0;
                                 cur_num_len = 0;
+                                cur_num_x = 0;
+                                cur_num_y = 0;
                                 reading_number = false;
                             }
                             else
@@ -136,6 +168,8 @@ namespace day_3_part_1
                             else
                             {
                                 cur_number = c - '0';
+                                cur_num_x = char_count;
+                                cur_num_y = line_count;
                                 reading_number = true;
                             }
                             reading_number = true;
@@ -144,10 +178,12 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                add_num_box(cur_number, cur_num_len, char_count, line_count);
+                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
                                 print_num_box(number_boxes.size() - 1);
                                 cur_number = 0;
                                 cur_num_len = 0;
+                                cur_num_x = 0;
+                                cur_num_y = 0;
                                 reading_number = false;
                             }
                             add_symbol(c, char_count, line_count);
@@ -159,6 +195,10 @@ namespace day_3_part_1
                 }
             }
         }
+
+        std::cout << "Test number: 42\n";
+        print_num_box(42);
+        box_collision(42);
 
         std::cout << "Total symbols: " << symbols.size() << std::endl;
         std::cout << "Total numbers: " << number_boxes.size() << std::endl;
