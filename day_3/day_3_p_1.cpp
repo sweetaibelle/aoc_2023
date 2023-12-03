@@ -115,6 +115,7 @@ namespace day_3_part_1
     void run()
     {
         std::ifstream my_file("inputs/day_3.txt");
+        //std::ifstream my_file("inputs/day_3_boop.txt");
 
         if (!my_file.is_open())
         {
@@ -194,6 +195,16 @@ namespace day_3_part_1
                             print_symbol(symbols.size() - 1);
                         }
                         char_count++;
+                    }
+                    if (reading_number)
+                    {
+                        add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
+                        print_num_box(number_boxes.size() - 1);
+                        cur_number = 0;
+                        cur_num_len = 0;
+                        cur_num_x = 0;
+                        cur_num_y = 0;
+                        reading_number = false;
                     }
                     line_count++;
                 }
