@@ -89,6 +89,10 @@ namespace day_3_part_1
             start_x = 0;
         if (start_y < 0)
             start_y = 0;
+        if (end_x > 140)
+            end_x = 140;
+        if (end_y > 140)
+            end_y = 140;
 
         std::cout << "Possible collision box: " << start_x << " " << start_y << " " << end_x << " " << end_y << "\n";
 
