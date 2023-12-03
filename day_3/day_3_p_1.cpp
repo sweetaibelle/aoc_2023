@@ -115,7 +115,7 @@ namespace day_3_part_1
     void run()
     {
         std::ifstream my_file("inputs/day_3.txt");
-        //std::ifstream my_file("inputs/day_3_boop.txt");
+        // std::ifstream my_file("inputs/day_3_boop.txt");
 
         if (!my_file.is_open())
         {
@@ -142,6 +142,16 @@ namespace day_3_part_1
                     u_int32_t char_count = 0;
                     bool reading_number = false;
                     u_int32_t cur_number = 0, cur_num_len = 0, cur_num_x = 0, cur_num_y = 0;
+                    auto finalize_number = [&]()
+                    {
+                        add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
+                        print_num_box(number_boxes.size() - 1);
+                        cur_number = 0;
+                        cur_num_len = 0;
+                        cur_num_x = 0;
+                        cur_num_y = 0;
+                        reading_number = false;
+                    };
 
                     for (auto c : line)
                     {
@@ -149,13 +159,7 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
-                                print_num_box(number_boxes.size() - 1);
-                                cur_number = 0;
-                                cur_num_len = 0;
-                                cur_num_x = 0;
-                                cur_num_y = 0;
-                                reading_number = false;
+                                finalize_number();
                             }
                             else
                             {
@@ -183,13 +187,7 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
-                                print_num_box(number_boxes.size() - 1);
-                                cur_number = 0;
-                                cur_num_len = 0;
-                                cur_num_x = 0;
-                                cur_num_y = 0;
-                                reading_number = false;
+                                finalize_number();
                             }
                             add_symbol(c, char_count, line_count);
                             print_symbol(symbols.size() - 1);
@@ -198,13 +196,7 @@ namespace day_3_part_1
                     }
                     if (reading_number)
                     {
-                        add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
-                        print_num_box(number_boxes.size() - 1);
-                        cur_number = 0;
-                        cur_num_len = 0;
-                        cur_num_x = 0;
-                        cur_num_y = 0;
-                        reading_number = false;
+                        finalize_number();
                     }
                     line_count++;
                 }
