@@ -46,11 +46,26 @@ namespace day_3_part_1
         if (!my_file.is_open())
         {
             std::cout << "day_3.txt not found" << std::endl;
-            return;
         }
         else
         {
             std::cout << "day_3.txt found" << std::endl;
         }
+
+
+        if (my_file.is_open())
+        {
+            while (my_file)
+            {
+                std::string line;
+                std::getline(my_file, line);
+                if (line != "")
+                {
+                    // Do something
+                }
+            }
+        }
+        
+        return;
     }
 }
