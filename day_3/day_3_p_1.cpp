@@ -196,12 +196,28 @@ namespace day_3_part_1
             }
         }
 
-        std::cout << "Test number: 42\n";
-        print_num_box(42);
-        box_collision(42);
+        //std::cout << "Test number: 42\n";
+        //print_num_box(42);
+        //box_collision(42);
+        for(u_int32_t i = 0; i < number_boxes.size(); i++)
+        {
+            box_collision(i);
+        }
 
-        std::cout << "Total symbols: " << symbols.size() << std::endl;
-        std::cout << "Total numbers: " << number_boxes.size() << std::endl;
+        std::cout << "Total symbols: " << symbols.size() << "\n";
+        std::cout << "Total numbers: " << number_boxes.size() << "\n";
+
+        u_int32_t total = 0;
+        for(u_int32_t i = 0; i < number_boxes.size(); i++)
+        {
+            if (number_boxes[i].touched)
+            {
+                total += number_boxes[i].number;
+                std::cout << "Number " << number_boxes[i].number << " at x:" << number_boxes[i].x << " y:" << number_boxes[i].y << " is touched.\n";
+            }
+        }
+
+        std::cout << "Sum of numbers touched: " << total << std::endl;
 
         return;
     }
