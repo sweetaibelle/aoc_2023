@@ -92,11 +92,11 @@ namespace day_3_part_1
 
         std::cout << "Possible collision box: " << start_x << " " << start_y << " " << end_x << " " << end_y << "\n";
 
-        for(u_int32_t x = static_cast<u_int32_t>(start_x); x < static_cast<u_int32_t>(end_x); x++)
+        for (u_int32_t x = static_cast<u_int32_t>(start_x); x <= static_cast<u_int32_t>(end_x); x++)
         {
-            for(u_int32_t y = static_cast<u_int32_t>(start_y); y < static_cast<u_int32_t>(end_y); y++)
+            for (u_int32_t y = static_cast<u_int32_t>(start_y); y <= static_cast<u_int32_t>(end_y); y++)
             {
-                for(auto symbol : symbols)
+                for (auto symbol : symbols)
                 {
                     if (symbol.x == x && symbol.y == y)
                     {
@@ -196,10 +196,12 @@ namespace day_3_part_1
             }
         }
 
-        //std::cout << "Test number: 42\n";
-        //print_num_box(42);
-        //box_collision(42);
-        for(u_int32_t i = 0; i < number_boxes.size(); i++)
+        /*
+        std::cout << "Test number: 42\n";
+        print_num_box(0);
+        box_collision(0);
+        */
+        for (u_int32_t i = 0; i < number_boxes.size(); i++)
         {
             box_collision(i);
         }
@@ -208,7 +210,7 @@ namespace day_3_part_1
         std::cout << "Total numbers: " << number_boxes.size() << "\n";
 
         u_int32_t total = 0;
-        for(u_int32_t i = 0; i < number_boxes.size(); i++)
+        for (u_int32_t i = 0; i < number_boxes.size(); i++)
         {
             if (number_boxes[i].touched)
             {
