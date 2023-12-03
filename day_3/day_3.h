@@ -6,3 +6,8 @@ namespace day_3_part_1
 {
     void run();
 }
+
+namespace day_3_part_2
+{
+    void run();
+}
