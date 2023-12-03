@@ -42,14 +42,45 @@ namespace day_3_part_1
     struct obj_symbol
     {
         char symbol;
-        u_int32_t x;
-        u_int32_t y;
+        u_int32_t x = 0;
+        u_int32_t y = 0;
     };
+
+    struct obj_number_box
+    {
+        u_int32_t number = 0;
+        u_int32_t length = 0;
+        u_int32_t x =0;
+        u_int32_t y= 0;
+        bool touched = false;
+    };
+
+    std::vector<obj_symbol> symbols;
+    std::vector<obj_number_box> number_boxes;
+
+    void add_symbol(char c, u_int32_t char_count, u_int32_t line_count)
+    {
+        symbols.push_back({c, char_count, line_count});
+    }
+
+    void print_symbol(u_int32_t idx)
+    {
+        std::cout << "Symbol: " << symbols[idx].symbol << " at x:" << symbols[idx].x << " y:" << symbols[idx].y << "\n";
+    }
+
+    void add_num_box(u_int32_t num, u_int32_t len, u_int32_t char_count, u_int32_t line_count)
+    {
+        number_boxes.push_back({num, len, char_count, line_count, false});
+    }
+
+    void print_num_box(u_int32_t idx)
+    {
+        std::cout << "Number: " << number_boxes[idx].number << " at x:" << number_boxes[idx].x << " y:" << number_boxes[idx].y << "\n";
+    }
 
     void run()
     {
         std::ifstream my_file("inputs/day_3.txt");
-        std::vector<obj_symbol> symbols;
 
         if (!my_file.is_open())
         {
@@ -74,21 +105,53 @@ namespace day_3_part_1
                     std::cout << "Line " << line_count << ": " << line << "\n";
                     // Do something
                     u_int32_t char_count = 0;
+                    bool reading_number = false;
+                    u_int32_t cur_number = 0, cur_num_len = 0;
 
                     for (auto c : line)
                     {
                         if (c == '.')
                         {
-                            // Do nothing.
+                            if (reading_number)
+                            {
+                                add_num_box(cur_number, cur_num_len, char_count, line_count);
+                                print_num_box(number_boxes.size() - 1);
+                                cur_number = 0;
+                                cur_num_len = 0;
+                                reading_number = false;
+                            }
+                            else
+                            {
+                                // Do nothing.
+                            }
                         }
                         else if (c >= '0' && c <= '9')
                         {
-                            std::cout << "Number found: " << c << " at x:" << char_count << " y:" << line_count << "\n";
+                            cur_num_len++;
+                            if (reading_number)
+                            {
+                                cur_number *= 10;
+                                cur_number += c - '0';
+                            }
+                            else
+                            {
+                                cur_number = c - '0';
+                                reading_number = true;
+                            }
+                            reading_number = true;
                         }
                         else
                         {
-                            symbols.push_back({c, char_count, line_count});
-                            std::cout << "Symbol found: " << c << " at x:" << char_count << " y:" << line_count << "\n";
+                            if (reading_number)
+                            {
+                                add_num_box(cur_number, cur_num_len, char_count, line_count);
+                                print_num_box(number_boxes.size() - 1);
+                                cur_number = 0;
+                                cur_num_len = 0;
+                                reading_number = false;
+                            }
+                            add_symbol(c, char_count, line_count);
+                            print_symbol(symbols.size() - 1);
                         }
                         char_count++;
                     }
@@ -98,6 +161,7 @@ namespace day_3_part_1
         }
 
         std::cout << "Total symbols: " << symbols.size() << std::endl;
+        std::cout << "Total numbers: " << number_boxes.size() << std::endl;
 
         return;
     }
