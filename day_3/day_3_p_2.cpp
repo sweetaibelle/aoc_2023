@@ -79,6 +79,7 @@ namespace day_3_part_2
         char symbol;
         u_int32_t x = 0;
         u_int32_t y = 0;
+        std::vector<u_int32_t> numbers = {};
     };
 
     struct obj_number_box
@@ -135,11 +136,12 @@ namespace day_3_part_2
         {
             for (u_int32_t y = static_cast<u_int32_t>(start_y); y <= static_cast<u_int32_t>(end_y); y++)
             {
-                for (auto symbol : symbols)
+                for (auto &symbol : symbols)
                 {
                     if (symbol.x == x && symbol.y == y)
                     {
-                        std::cout << "Collision at x:" << x << " y:" << y << " symbol:" << symbol.symbol << "\n";
+                        symbol.numbers.push_back(number_boxes[idx].number);
+                        std::cout << "Collision at x:" << x << " y:" << y << " symbol:" << symbol.symbol << " - # " << symbol.numbers.size() << "\n";
                         number_boxes[idx].touched = true;
                     }
                 }
@@ -266,12 +268,23 @@ namespace day_3_part_2
             if (number_boxes[i].touched)
             {
                 total += number_boxes[i].number;
-                std::cout << "Number " << number_boxes[i].number << " at x:" << number_boxes[i].x << " y:" << number_boxes[i].y << " is touched.\n";
+                //std::cout << "Number " << number_boxes[i].number << " at x:" << number_boxes[i].x << " y:" << number_boxes[i].y << " is touched.\n";
             }
         }
 
         std::cout << "Sum of numbers touched: " << total << std::endl;
 
+        u_int32_t gear_total = 0;
+        for(auto symbol : symbols)
+        {
+            if(symbol.numbers.size() == 2)
+            {
+                std::cout << "Gear ratio: " << symbol.numbers[0] << " * " << symbol.numbers[1] << " = " << symbol.numbers[0] * symbol.numbers[1] << "\n";
+                gear_total += symbol.numbers[0] * symbol.numbers[1];
+            }
+        }
+
+        std::cout << "Total gear ratio: " << gear_total << "\n";
         return;
     }
 }
