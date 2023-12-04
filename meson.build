@@ -15,6 +15,9 @@ sources = files([
 	'day_3/day_3_p_1.cpp',
 	'day_3/day_3_p_2.cpp',
 	'day_3/day_3.h',
+	'day_4/day_4_p_1.cpp',
+	'day_4/day_4_p_2.cpp',
+	'day_4/day_4.h',
 	'aoc.cpp'
 ])
 
