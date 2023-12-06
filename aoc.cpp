@@ -12,7 +12,8 @@ int main()
     //day_2_part_2::run();
     //day_3_part_1::run();
     //day_3_part_2::run();
-    day_4_part_1::run();
+    //day_4_part_1::run();
+    day_4_part_2::run();
 
     return 0;
 }

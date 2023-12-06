@@ -47,6 +47,7 @@
 // Take a seat in the large pile of colorful cards. How many points are they worth in total?
 
 #include "util/util.h"
+#include <algorithm>
 
 namespace day_4_part_1
 {
@@ -81,22 +82,8 @@ namespace day_4_part_1
                     auto winning_numbers = split(split_line[0], ' ');
                     auto my_numbers = split(split_line[1], ' ');
 
-                    for (auto i = winning_numbers.begin(); i != winning_numbers.end(); i++)
-                    {
-                        if (*i == "")
-                        {
-                            winning_numbers.erase(i);
-                            i--;
-                        }
-                    }
-                    for (auto i = my_numbers.begin(); i != my_numbers.end(); i++)
-                    {
-                        if (*i == "")
-                        {
-                            my_numbers.erase(i);
-                            i--;
-                        }
-                    }
+                    winning_numbers.erase(std::remove_if(winning_numbers.begin(), winning_numbers.end(), [](std::string &s) { return s == ""; }), winning_numbers.end());
+                    my_numbers.erase(std::remove_if(my_numbers.begin(), my_numbers.end(), [](std::string &s) { return s == ""; }), my_numbers.end());
 
                     std::cout << "Winning numbers: ";
                     for (auto &win_num : winning_numbers)
