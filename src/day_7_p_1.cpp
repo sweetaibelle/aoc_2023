@@ -76,8 +76,6 @@ namespace day_7
 {
     namespace part_1
     {
-        const std::array<std::string, 13> card_value = {"A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"};
-
         enum card_name
         {
             ACE,
