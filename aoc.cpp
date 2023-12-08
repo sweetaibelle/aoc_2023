@@ -18,8 +18,8 @@ int main()
     //day_4_part_2::run();
     //day_5_part_1::run();
     //day_5_part_2::run();
-    day_6_part_1::run();
-    //day_6_part_2::run();
+    //day_6_part_1::run();
+    day_6_part_2::run();
 
     return 0;
 }
