@@ -107,6 +107,13 @@ namespace day_7
             FIVE_OF_A_KIND
         };
 
+        struct camel_round
+        {
+            std::array<card_name, 5> hand;
+            hand_type type;
+            u_int32_t bid;
+        };
+
         card_name to_card_name(char c)
         {
             switch (c)
@@ -199,11 +206,6 @@ namespace day_7
             return "ERROR";
         }
 
-        bool card_sort(const card_name &a, const card_name &b)
-        {
-            return (a < b);
-        }
-
         hand_type get_hand_type(const std::array<card_name, 5> &hand)
         {
             std::array<u_int8_t, 13> card_count = {0};
@@ -235,8 +237,6 @@ namespace day_7
                 }
             }
 
-            //std::cout << " (pair_count: " << (u_int32_t)pair_count << ") ";
-
             if (has_five)
             {
                 return hand_type::FIVE_OF_A_KIND;
@@ -259,7 +259,6 @@ namespace day_7
             }
             else if (pair_count == 1)
             {
-                //std::cout << " (ONE_PAIR) ";
                 return hand_type::ONE_PAIR;
             }
             else
@@ -270,9 +269,39 @@ namespace day_7
             return hand_type::HIGH_CARD;
         }
 
+        bool card_compare(const card_name &a, const card_name &b)
+        {
+            return (a > b);
+        }
+
+        bool hand_type_compare(const hand_type &a, const hand_type &b)
+        {
+            return (a < b);
+        }
+
+        bool round_compare(const camel_round &a, const camel_round &b)
+        {
+            if (a.type == b.type)
+            {
+                for(u_int8_t i = 0; i < 5; i++)
+                {
+                    if(a.hand[i] != b.hand[i])
+                    {
+                        return card_compare(a.hand[i], b.hand[i]);
+                    }
+                }
+            }
+            else
+            {
+                return hand_type_compare(a.type, b.type);
+            }
+            return false;
+        }
+
         void run()
         {
             auto my_file = util::read_file("inputs/day_7.txt");
+            std::vector<camel_round> rounds;
 
             if (!my_file.empty())
             {
@@ -288,17 +317,27 @@ namespace day_7
                         hand[i] = to_card_name(hand_str[i]);
                     }
 
+                    hand_type current_hand_type = get_hand_type(hand);
+                    rounds.push_back({hand, current_hand_type, bid});
+                }
+
+                std::sort(rounds.begin(), rounds.end(), round_compare);
+                u_int64_t winnings = 0;
+
+                for (u_int32_t round_num = 0; round_num < rounds.size(); round_num++)
+                {
+                    std::cout << "Round " << round_num + 1 << ": ";
                     std::cout << "Hand: ";
                     for (u_int8_t i = 0; i < 5; i++)
                     {
-                        std::cout << "'" << card_to_string(hand[i]) << "'" << " ";
+                        std::cout << "'" << card_to_string(rounds[round_num].hand[i]) << "'"
+                                  << " ";
                     }
-
-                    hand_type current_hand_type = get_hand_type(hand);
-                    std::cout << " Hand Type: " << hand_type_to_string(current_hand_type);
-
-                    std::cout << " Bid: " << bid << std::endl;
+                    std::cout << " Hand Type: " << hand_type_to_string(rounds[round_num].type);
+                    std::cout << " Bid: " << rounds[round_num].bid << std::endl;
+                    winnings += rounds[round_num].bid * (round_num + 1);
                 }
+                std::cout << "Total Winnings: " << winnings << std::endl;
             }
         }
     }
