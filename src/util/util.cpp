@@ -2,6 +2,7 @@
 
 // A lot of this code is just going to be stuff I found on the internet. I'm not going to try to reinvent the wheel here.
 // I'm just going to try to make it work for my purposes.
+// https://cppbyexample.com/split_string.html
 // https://stackoverflow.com/questions/66897068/can-trim-of-a-string-be-done-inplace-with-c20-ranges
 
 namespace util
