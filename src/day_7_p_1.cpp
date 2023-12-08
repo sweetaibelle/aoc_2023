@@ -87,6 +87,11 @@ namespace day_7
             FIVE_OF_A_KIND
         };
 
+        hand_type get_hand_type(const std::array<char,5> &hand)
+        {
+            return hand_type::HIGH_CARD;
+        }
+
         void run()
         {
             auto my_file = util::read_file("inputs/day_7.txt");
