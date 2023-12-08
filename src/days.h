@@ -85,3 +85,15 @@ namespace day_7
         void run();
     }
 }
+
+namespace day_8
+{
+    namespace part_1
+    {
+        void run();
+    }
+    namespace part_2
+    {
+        void run();
+    }
+}

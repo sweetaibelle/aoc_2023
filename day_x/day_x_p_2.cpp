@@ -1,30 +1,18 @@
 #include "util/util.h"
 
-namespace day_5_part_2
+namespace day_x
 {
-    void run()
+    namespace part_2
     {
-        std::ifstream my_file("inputs/day_5.txt");
+        void run()
+        {
+            auto my_file = util::read_file("inputs/day_x.txt");
 
-        if (!my_file.is_open())
-        {
-            std::cout << "day_5.txt not found" << std::endl;
-        }
-        else
-        {
-            std::cout << "day_5.txt found" << std::endl;
-        }
-
-        if (my_file.is_open())
-        {
-            while (my_file)
+            if (!my_file.empty())
             {
-                std::string line;
-                std::getline(my_file, line);
-
-                if (line != "")
+                for (auto &line : my_file)
                 {
-                    //
+                    std::cout << line << std::endl;
                 }
             }
         }

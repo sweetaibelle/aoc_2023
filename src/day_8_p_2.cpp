@@ -1,12 +1,12 @@
 #include "util/util.h"
 
-namespace day_x
+namespace day_8
 {
-    namespace part_1
+    namespace part_2
     {
         void run()
         {
-            auto my_file = util::read_file("inputs/day_x.txt");
+            auto my_file = util::read_file("inputs/day_8.txt");
 
             if (!my_file.empty())
             {

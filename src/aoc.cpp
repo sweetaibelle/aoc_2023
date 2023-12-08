@@ -94,6 +94,18 @@ int main()
             }
             break;
         
+        case 8:
+            switch(part)
+            {
+                case 1: // Done.
+                    day_7::part_1::run();
+                    break;
+                case 2:
+                    day_7::part_2::run();
+                    break;
+            }
+            break;
+        
         default:
             std::cout << "Invalid day or part.\n";
             break;
