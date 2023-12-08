@@ -87,50 +87,57 @@
 #include "util/util.h"
 #include <algorithm>
 
-namespace day_6_part_2
+namespace day_6
 {
-    void run()
+    namespace part_2
     {
-        std::ifstream my_file("inputs/day_6.txt");
+        void run()
+        {
+            std::ifstream my_file("inputs/day_6.txt");
 
-        if (!my_file.is_open())
-        {
-            std::cout << "day_6.txt not found" << std::endl;
-        }
-        else
-        {
-            std::cout << "day_6.txt found" << std::endl;
-        }
-
-        if (my_file.is_open())
-        {
-            if (my_file)
+            if (!my_file.is_open())
             {
-                std::string line;
-                std::getline(my_file, line);
-                line.erase(std::remove_if(line.begin(), line.end(), [](char &c) { return c == ' '; }), line.end());
-                auto str_split = split(line, ':');
-                u_int64_t time = std::atoll(str_split[1].c_str());
-                std::cout << "Time = " << time << std::endl;
+                std::cout << "day_6.txt not found" << std::endl;
+            }
+            else
+            {
+                std::cout << "day_6.txt found" << std::endl;
+            }
 
-                std::getline(my_file, line);
-                line.erase(std::remove_if(line.begin(), line.end(), [](char &c) { return c == ' '; }), line.end());
-                auto str_split2 = split(line, ':');
-                u_int64_t distance = std::atoll(str_split2[1].c_str());
-                std::cout << "Distance = " << distance << std::endl;
-                u_int32_t num_ways_to_win = 0;
-
-                for (u_int64_t i = 0; i < time; i++)
+            if (my_file.is_open())
+            {
+                if (my_file)
                 {
-                    u_int64_t time_held = i;
-                    u_int64_t time_travelled = time - time_held;
-                    u_int64_t distance_travelled = time_travelled * time_held;
-                    if (distance_travelled > distance)
+                    std::string line;
+                    std::getline(my_file, line);
+                    line.erase(std::remove_if(line.begin(), line.end(), [](char &c)
+                                              { return c == ' '; }),
+                               line.end());
+                    auto str_split = split(line, ':');
+                    u_int64_t time = std::atoll(str_split[1].c_str());
+                    std::cout << "Time = " << time << std::endl;
+
+                    std::getline(my_file, line);
+                    line.erase(std::remove_if(line.begin(), line.end(), [](char &c)
+                                              { return c == ' '; }),
+                               line.end());
+                    auto str_split2 = split(line, ':');
+                    u_int64_t distance = std::atoll(str_split2[1].c_str());
+                    std::cout << "Distance = " << distance << std::endl;
+                    u_int32_t num_ways_to_win = 0;
+
+                    for (u_int64_t i = 0; i < time; i++)
                     {
-                        num_ways_to_win++;
+                        u_int64_t time_held = i;
+                        u_int64_t time_travelled = time - time_held;
+                        u_int64_t distance_travelled = time_travelled * time_held;
+                        if (distance_travelled > distance)
+                        {
+                            num_ways_to_win++;
+                        }
                     }
+                    std::cout << "Wins: '" << num_ways_to_win << "'\n";
                 }
-                std::cout << "Wins: '" << num_ways_to_win << "'\n";
             }
         }
     }

@@ -5,18 +5,18 @@
 
 // "A water source? Island Island is the water source!" You point out that Snow Island isn't receiving any water.
 
-// "Oh, we had to stop the water because we ran out of sand to filter it with! Can't make snow with dirty water. Don't worry, I'm sure we'll get more 
+// "Oh, we had to stop the water because we ran out of sand to filter it with! Can't make snow with dirty water. Don't worry, I'm sure we'll get more
 // sand soon; we only turned off the water a few days... weeks... oh no." His face sinks into a look of horrified realization.
 
-// "I've been so busy making sure everyone here has food that I completely forgot to check why we stopped getting more sand! There's a ferry leaving 
+// "I've been so busy making sure everyone here has food that I completely forgot to check why we stopped getting more sand! There's a ferry leaving
 // soon that is headed over in that direction - it's much faster than your boat. Could you please go check it out?"
 
-// You barely have time to agree to this request when he brings up another. "While you wait for the ferry, maybe you can help us with our food 
+// You barely have time to agree to this request when he brings up another. "While you wait for the ferry, maybe you can help us with our food
 // production problem. The latest Island Island Almanac just arrived and we're having trouble making sense of it."
 
-// The almanac (your puzzle input) lists all of the seeds that need to be planted. It also lists what type of soil to use with each kind of seed, what 
-// type of fertilizer to use with each kind of soil, what type of water to use with each kind of fertilizer, and so on. Every type of seed, soil, 
-// fertilizer and so on is identified with a number, but numbers are reused by each category - that is, soil 123 and fertilizer 123 aren't necessarily 
+// The almanac (your puzzle input) lists all of the seeds that need to be planted. It also lists what type of soil to use with each kind of seed, what
+// type of fertilizer to use with each kind of soil, what type of water to use with each kind of fertilizer, and so on. Every type of seed, soil,
+// fertilizer and so on is identified with a number, but numbers are reused by each category - that is, soil 123 and fertilizer 123 aren't necessarily
 // related to each other.
 
 // For example:
@@ -57,11 +57,11 @@
 
 // The almanac starts by listing which seeds need to be planted: seeds 79, 14, 55, and 13.
 
-// The rest of the almanac contains a list of maps which describe how to convert numbers from a source category into numbers in a destination category. 
-// That is, the section that starts with seed-to-soil map: describes how to convert a seed number (the source) to a soil number (the destination). 
+// The rest of the almanac contains a list of maps which describe how to convert numbers from a source category into numbers in a destination category.
+// That is, the section that starts with seed-to-soil map: describes how to convert a seed number (the source) to a soil number (the destination).
 // This lets the gardener and his team know which soil to use with which seeds, which water to use with which fertilizer, and so on.
 
-// Rather than list every source number and its corresponding destination number one by one, the maps describe entire ranges of numbers that can be 
+// Rather than list every source number and its corresponding destination number one by one, the maps describe entire ranges of numbers that can be
 // converted. Each line within a map contains three numbers: the destination range start, the source range start, and the range length.
 
 // Consider again the example seed-to-soil map:
@@ -69,11 +69,11 @@
 // 50 98 2
 // 52 50 48
 
-// The first line has a destination range start of 50, a source range start of 98, and a range length of 2. This line means that the source range 
-// starts at 98 and contains two values: 98 and 99. The destination range is the same length, but it starts at 50, so its two values are 50 and 51. 
+// The first line has a destination range start of 50, a source range start of 98, and a range length of 2. This line means that the source range
+// starts at 98 and contains two values: 98 and 99. The destination range is the same length, but it starts at 50, so its two values are 50 and 51.
 // With this information, you know that seed number 98 corresponds to soil number 50 and that seed number 99 corresponds to soil number 51.
 
-// The second line means that the source range starts at 50 and contains 48 values: 50, 51, ..., 96, 97. This corresponds to a destination range 
+// The second line means that the source range starts at 50 and contains 48 values: 50, 51, ..., 96, 97. This corresponds to a destination range
 // starting at 52 and also containing 48 values: 52, 53, ..., 98, 99. So, seed number 53 corresponds to soil number 55.
 
 // Any source numbers that aren't mapped correspond to the same destination number. So, seed number 10 corresponds to soil number 10.
@@ -101,8 +101,8 @@
 //     Seed number 55 corresponds to soil number 57.
 //     Seed number 13 corresponds to soil number 13.
 
-// The gardener and his team want to get started as soon as possible, so they'd like to know the closest location that needs a seed. Using these maps, 
-// find the lowest location number that corresponds to any of the initial seeds. To do this, you'll need to convert each seed number through other 
+// The gardener and his team want to get started as soon as possible, so they'd like to know the closest location that needs a seed. Using these maps,
+// find the lowest location number that corresponds to any of the initial seeds. To do this, you'll need to convert each seed number through other
 // categories until you can find its corresponding location number. In this example, the corresponding types are:
 
 //     Seed 79, soil 81, fertilizer 81, water 81, light 74, temperature 78, humidity 78, location 82.
@@ -114,34 +114,36 @@
 
 // What is the lowest location number that corresponds to any of the initial seed numbers?
 
-
 #include "util/util.h"
 
-namespace day_5_part_1
+namespace day_5
 {
-    void run()
+    namespace part_1
     {
-        std::ifstream my_file("inputs/day_5.txt");
+        void run()
+        {
+            std::ifstream my_file("inputs/day_5.txt");
 
-        if (!my_file.is_open())
-        {
-            std::cout << "day_5.txt not found" << std::endl;
-        }
-        else
-        {
-            std::cout << "day_5.txt found" << std::endl;
-        }
-
-        if (my_file.is_open())
-        {
-            while (my_file)
+            if (!my_file.is_open())
             {
-                std::string line;
-                std::getline(my_file, line);
+                std::cout << "day_5.txt not found" << std::endl;
+            }
+            else
+            {
+                std::cout << "day_5.txt found" << std::endl;
+            }
 
-                if (line != "")
+            if (my_file.is_open())
+            {
+                while (my_file)
                 {
-                    //
+                    std::string line;
+                    std::getline(my_file, line);
+
+                    if (line != "")
+                    {
+                        //
+                    }
                 }
             }
         }

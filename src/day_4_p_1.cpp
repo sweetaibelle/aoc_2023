@@ -49,86 +49,93 @@
 #include "util/util.h"
 #include <algorithm>
 
-namespace day_4_part_1
+namespace day_4
 {
-    void run()
+    namespace part_1
     {
-        std::ifstream my_file("inputs/day_4.txt");
-
-        if (!my_file.is_open())
+        void run()
         {
-            std::cout << "day_4.txt not found" << std::endl;
-        }
-        else
-        {
-            std::cout << "day_4.txt found" << std::endl;
-        }
+            std::ifstream my_file("inputs/day_4.txt");
 
-        if (my_file.is_open())
-        {
-            auto sum = 0;
-
-            while (my_file)
+            if (!my_file.is_open())
             {
-                std::string line;
-                std::getline(my_file, line);
+                std::cout << "day_4.txt not found" << std::endl;
+            }
+            else
+            {
+                std::cout << "day_4.txt found" << std::endl;
+            }
 
-                if (line != "")
+            if (my_file.is_open())
+            {
+                auto sum = 0;
+
+                while (my_file)
                 {
-                    auto trim_line = split(line, ':');
+                    std::string line;
+                    std::getline(my_file, line);
 
-                    auto split_line = split(trim_line[1], '|');
-
-                    auto winning_numbers = split(split_line[0], ' ');
-                    auto my_numbers = split(split_line[1], ' ');
-
-                    winning_numbers.erase(std::remove_if(winning_numbers.begin(), winning_numbers.end(), [](std::string &s) { return s == ""; }), winning_numbers.end());
-                    my_numbers.erase(std::remove_if(my_numbers.begin(), my_numbers.end(), [](std::string &s) { return s == ""; }), my_numbers.end());
-
-                    std::cout << "Winning numbers: ";
-                    for (auto &win_num : winning_numbers)
+                    if (line != "")
                     {
-                        std::cout << "'" << win_num << "' ";
-                    }
-                    std::cout << "\n";
+                        auto trim_line = split(line, ':');
 
-                    std::cout << "My numbers: ";
-                    for (auto &my_num : my_numbers)
-                    {
-                        std::cout << "'" << my_num << "' ";
-                    }
-                    std::cout << "\n";
+                        auto split_line = split(trim_line[1], '|');
 
-                    auto num_matches = 0;
-                    auto num_matches_doubled = 0;
-                    for (auto &win_num : winning_numbers)
-                    {
+                        auto winning_numbers = split(split_line[0], ' ');
+                        auto my_numbers = split(split_line[1], ' ');
+
+                        winning_numbers.erase(std::remove_if(winning_numbers.begin(), winning_numbers.end(), [](std::string &s)
+                                                             { return s == ""; }),
+                                              winning_numbers.end());
+                        my_numbers.erase(std::remove_if(my_numbers.begin(), my_numbers.end(), [](std::string &s)
+                                                        { return s == ""; }),
+                                         my_numbers.end());
+
+                        std::cout << "Winning numbers: ";
+                        for (auto &win_num : winning_numbers)
+                        {
+                            std::cout << "'" << win_num << "' ";
+                        }
+                        std::cout << "\n";
+
+                        std::cout << "My numbers: ";
                         for (auto &my_num : my_numbers)
                         {
-                            if (win_num == my_num)
-                            {
-                                std::cout << "Found a match! " << win_num << "\n";
-                                num_matches++;
-                            }
+                            std::cout << "'" << my_num << "' ";
                         }
-                    }
-                    if (num_matches > 0)
-                    {
-                        num_matches_doubled = 1;
-                        if (num_matches > 1)
+                        std::cout << "\n";
+
+                        auto num_matches = 0;
+                        auto num_matches_doubled = 0;
+                        for (auto &win_num : winning_numbers)
                         {
-                            for (auto i = 0; i < num_matches - 1; i++)
+                            for (auto &my_num : my_numbers)
                             {
-                                num_matches_doubled *= 2;
+                                if (win_num == my_num)
+                                {
+                                    std::cout << "Found a match! " << win_num << "\n";
+                                    num_matches++;
+                                }
                             }
                         }
+                        if (num_matches > 0)
+                        {
+                            num_matches_doubled = 1;
+                            if (num_matches > 1)
+                            {
+                                for (auto i = 0; i < num_matches - 1; i++)
+                                {
+                                    num_matches_doubled *= 2;
+                                }
+                            }
+                        }
+                        std::cout << "Points: " << num_matches_doubled << "\n";
+                        sum += num_matches_doubled;
                     }
-                    std::cout << "Points: " << num_matches_doubled << "\n";
-                    sum += num_matches_doubled;
                 }
+                std::cout << "Day 4 Part 1!\n";
+                std::cout << "Sum: " << sum << "\n";
             }
-            std::cout << "Day 4 Part 1!\n";
-            std::cout << "Sum: " << sum << "\n";
         }
     }
 }
