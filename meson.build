@@ -27,7 +27,7 @@ sources = files([
 	'day_7/day_7_p_1.cpp',
 	'day_7/day_7_p_2.cpp',
 	'day_7/day_7.h',
-	'aoc.cpp'
+	'src/aoc.cpp'
 ])
 
 exe = executable('aoc', sources,
