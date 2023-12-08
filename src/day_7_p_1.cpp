@@ -75,7 +75,7 @@ namespace day_7
 {
     namespace part_1
     {
-        const std::vector<char> card_value = {'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'};
+        const std::array<char,13> card_value = {'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'};
         enum hand_type
         {
             HIGH_CARD,
@@ -87,8 +87,22 @@ namespace day_7
             FIVE_OF_A_KIND
         };
 
+        bool card_sort(const char &a, const char &b)
+        {
+            u_int8_t a_index = 0;
+            u_int8_t b_index = 0;
+
+            a_index = std::find(card_value.begin(), card_value.end(), a) - card_value.begin();
+            b_index = std::find(card_value.begin(), card_value.end(), b) - card_value.begin();
+            return (a_index < b_index);
+        }
+
         hand_type get_hand_type(const std::array<char,5> &hand)
         {
+            if ((hand[0] == hand[1]) && (hand[1] == hand[2]) && (hand[2] == hand[3]) && (hand[3] == hand[4]) && (hand[4] == hand[5]))
+            {
+                return hand_type::FIVE_OF_A_KIND;
+            }
             return hand_type::HIGH_CARD;
         }
 
@@ -109,8 +123,15 @@ namespace day_7
                     for (u_int8_t i = 0; i < 5 ; i++)
                     {
                         hand[i] = hand_str[i];
+                    }
+
+                    std::sort(hand.begin(), hand.end(), card_sort);
+
+                    for (u_int8_t i = 0; i < 5 ; i++)
+                    {
                         std::cout << hand[i] << " ";
                     }
+                    
                     std::cout << " Bid: " << bid << std::endl;
                 }
             }
