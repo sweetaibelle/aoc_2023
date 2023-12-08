@@ -113,7 +113,7 @@ namespace day_6
                     line.erase(std::remove_if(line.begin(), line.end(), [](char &c)
                                               { return c == ' '; }),
                                line.end());
-                    auto str_split = split(line, ':');
+                    auto str_split = util::split(line, ':');
                     u_int64_t time = std::atoll(str_split[1].c_str());
                     std::cout << "Time = " << time << std::endl;
 
@@ -121,7 +121,7 @@ namespace day_6
                     line.erase(std::remove_if(line.begin(), line.end(), [](char &c)
                                               { return c == ' '; }),
                                line.end());
-                    auto str_split2 = split(line, ':');
+                    auto str_split2 = util::split(line, ':');
                     u_int64_t distance = std::atoll(str_split2[1].c_str());
                     std::cout << "Distance = " << distance << std::endl;
                     u_int32_t num_ways_to_win = 0;

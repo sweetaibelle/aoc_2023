@@ -96,18 +96,18 @@ namespace day_6
 
                     std::string time;
                     std::string distance;
-                    auto split_str = split(line, ':');
+                    auto split_str = util::split(line, ':');
                     time = split_str[1];
-                    auto times = split(time, ' ');
+                    auto times = util::split(time, ' ');
                     times.erase(std::remove_if(times.begin(), times.end(), [](std::string &s)
                                                { return s == ""; }),
                                 times.end());
 
                     std::getline(my_file, line);
 
-                    auto split_str2 = split(line, ':');
+                    auto split_str2 = util::split(line, ':');
                     distance = split_str2[1];
-                    auto distances = split(distance, ' ');
+                    auto distances = util::split(distance, ' ');
                     distances.erase(std::remove_if(distances.begin(), distances.end(), [](std::string &s)
                                                    { return s == ""; }),
                                     distances.end());

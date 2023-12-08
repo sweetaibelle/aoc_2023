@@ -4,8 +4,8 @@ project('aoc', 'cpp',
                      'cpp_std=c++20'])
 
 sources = files([
-	'util/util.cpp',
-	'util/util.h',
+	'src/util/util.cpp',
+	'src/util/util.h',
 	'src/day_1_p_1.cpp',
 	'src/day_1_p_2.cpp',
 	'src/day_2_p_1.cpp',

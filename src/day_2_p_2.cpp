@@ -20,7 +20,7 @@ namespace day_2
         {
             cubes b = {0, 0, 0};
 
-            auto temp = split(round, ',');
+            auto temp = util::split(round, ',');
             for (auto temp_cube : temp)
             {
                 size_t pos = 0;
@@ -51,7 +51,7 @@ namespace day_2
         int32_t test_game(std::string line)
         {
 
-            auto split_line = split(line, ':');
+            auto split_line = util::split(line, ':');
             std::string str_idx = split_line[0];
             std::string str_games = split_line[1];
 
@@ -59,7 +59,7 @@ namespace day_2
             str_idx.erase(0, 5);
             auto idx = std::atoi(str_idx.c_str());
 
-            auto rounds = split(str_games, ';');
+            auto rounds = util::split(str_games, ';');
 
             cubes total = {0, 0, 0};
             for (auto round : rounds)

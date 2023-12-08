@@ -77,12 +77,12 @@ namespace day_4
 
                     if (line != "")
                     {
-                        auto trim_line = split(line, ':');
+                        auto trim_line = util::split(line, ':');
 
-                        auto split_line = split(trim_line[1], '|');
+                        auto split_line = util::split(trim_line[1], '|');
 
-                        auto winning_numbers = split(split_line[0], ' ');
-                        auto my_numbers = split(split_line[1], ' ');
+                        auto winning_numbers = util::split(split_line[0], ' ');
+                        auto my_numbers = util::split(split_line[1], ' ');
 
                         winning_numbers.erase(std::remove_if(winning_numbers.begin(), winning_numbers.end(), [](std::string &s)
                                                              { return s == ""; }),
