@@ -34,9 +34,33 @@ namespace util
         };
 
         // Erase the spaces at the back.
-        s.erase(std::ranges::find_if(s | std::views::reverse, not_space).base(),s.end());
+        s.erase(std::ranges::find_if(s | std::views::reverse, not_space).base(), s.end());
 
         // Erase the spaces at the front.
         s.erase(s.begin(), std::ranges::find_if(s, not_space));
+    }
+
+    // My reworking of something suggested by Copilot.
+    std::vector<std::string> read_file(const std::string &filename)
+    {
+        std::ifstream file(filename);
+        std::vector<std::string> lines;
+        std::string line;
+
+        if (!file.is_open())
+        {
+            std::cout << filename << " not found" << std::endl;
+        }
+        else
+        {
+            std::cout << filename << " found" << std::endl;
+
+            while (std::getline(file, line))
+            {
+                lines.push_back(line);
+            }
+            return lines;
+        }
+        return {};
     }
 }

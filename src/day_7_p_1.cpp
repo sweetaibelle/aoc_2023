@@ -6,28 +6,13 @@ namespace day_7
     {
         void run()
         {
-            std::ifstream my_file("inputs/day_7.txt");
+            auto my_file = util::read_file("inputs/day_7.txt");
 
-            if (!my_file.is_open())
+            if (!my_file.empty())
             {
-                std::cout << "day_7.txt not found" << std::endl;
-            }
-            else
-            {
-                std::cout << "day_7.txt found" << std::endl;
-            }
-
-            if (my_file.is_open())
-            {
-                while (my_file)
+                for (auto &line : my_file)
                 {
-                    std::string line;
-                    std::getline(my_file, line);
-
-                    if (line != "")
-                    {
-                        //
-                    }
+                    std::cout << line << std::endl;
                 }
             }
         }
