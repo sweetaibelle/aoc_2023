@@ -3,6 +3,8 @@
 #include "day_2/day_2.h"
 #include "day_3/day_3.h"
 #include "day_4/day_4.h"
+#include "day_5/day_5.h"
+#include "day_6/day_6.h"
 
 int main()
 {
@@ -13,7 +15,11 @@ int main()
     //day_3_part_1::run();
     //day_3_part_2::run();
     //day_4_part_1::run();
-    day_4_part_2::run();
+    //day_4_part_2::run();
+    //day_5_part_1::run();
+    //day_5_part_2::run();
+    day_6_part_1::run();
+    //day_6_part_2::run();
 
     return 0;
 }
