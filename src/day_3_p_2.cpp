@@ -1,5 +1,4 @@
 #include "util/util.h"
-#include "day_3/day_3.h"
 
 // --- Day 3: Gear Ratios ---
 
@@ -37,13 +36,49 @@
 
 // Of course, the actual engine schematic is much larger. What is the sum of all of the part numbers in the engine schematic?
 
-namespace day_3_part_1
+// --- Part Two ---
+
+// The engineer finds the missing part and installs it in the engine! As the engine springs to life, you jump in the closest gondola, finally ready to 
+// ascend to the water source.
+
+// You don't seem to be going very fast, though. Maybe something is still wrong? Fortunately, the gondola has a phone labeled "help", so you pick it up 
+// and the engineer answers.
+
+// Before you can explain the situation, she suggests that you look out the window. There stands the engineer, holding a phone in one hand and waving 
+// with the other. You're going so slowly that you haven't even left the station. You exit the gondola.
+
+// The missing part wasn't the only issue - one of the gears in the engine is wrong. A gear is any * symbol that is adjacent to exactly two part numbers. 
+// Its gear ratio is the result of multiplying those two numbers together.
+
+// This time, you need to find the gear ratio of every gear and add them all up so that the engineer can figure out which gear needs to be replaced.
+
+// Consider the same engine schematic again:
+
+// 467..114..
+// ...*......
+// ..35..633.
+// ......#...
+// 617*......
+// .....+.58.
+// ..592.....
+// ......755.
+// ...$.*....
+// .664.598..
+
+// In this schematic, there are two gears. The first is in the top left; it has part numbers 467 and 35, so its gear ratio is 16345. The second gear is 
+// in the lower right; its gear ratio is 451490. (The * adjacent to 617 is not a gear because it is only adjacent to one part number.) Adding up all of 
+// the gear ratios produces 467835.
+
+// What is the sum of all of the gear ratios in your engine schematic?
+
+namespace day_3_part_2
 {
     struct obj_symbol
     {
         char symbol;
         u_int32_t x = 0;
         u_int32_t y = 0;
+        std::vector<u_int32_t> numbers = {};
     };
 
     struct obj_number_box
@@ -100,11 +135,12 @@ namespace day_3_part_1
         {
             for (u_int32_t y = static_cast<u_int32_t>(start_y); y <= static_cast<u_int32_t>(end_y); y++)
             {
-                for (auto symbol : symbols)
+                for (auto &symbol : symbols)
                 {
                     if (symbol.x == x && symbol.y == y)
                     {
-                        std::cout << "Collision at x:" << x << " y:" << y << " symbol:" << symbol.symbol << "\n";
+                        symbol.numbers.push_back(number_boxes[idx].number);
+                        std::cout << "Collision at x:" << x << " y:" << y << " symbol:" << symbol.symbol << " - # " << symbol.numbers.size() << "\n";
                         number_boxes[idx].touched = true;
                     }
                 }
@@ -115,7 +151,8 @@ namespace day_3_part_1
     void run()
     {
         std::ifstream my_file("inputs/day_3.txt");
-        // std::ifstream my_file("inputs/day_3_boop.txt");
+        std::cout << "::: DAY 3 - PART 2 :::\n";
+        //std::ifstream my_file("inputs/day_3_boop.txt");
 
         if (!my_file.is_open())
         {
@@ -142,16 +179,6 @@ namespace day_3_part_1
                     u_int32_t char_count = 0;
                     bool reading_number = false;
                     u_int32_t cur_number = 0, cur_num_len = 0, cur_num_x = 0, cur_num_y = 0;
-                    auto finalize_number = [&]()
-                    {
-                        add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
-                        print_num_box(number_boxes.size() - 1);
-                        cur_number = 0;
-                        cur_num_len = 0;
-                        cur_num_x = 0;
-                        cur_num_y = 0;
-                        reading_number = false;
-                    };
 
                     for (auto c : line)
                     {
@@ -159,7 +186,13 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                finalize_number();
+                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
+                                print_num_box(number_boxes.size() - 1);
+                                cur_number = 0;
+                                cur_num_len = 0;
+                                cur_num_x = 0;
+                                cur_num_y = 0;
+                                reading_number = false;
                             }
                             else
                             {
@@ -187,7 +220,13 @@ namespace day_3_part_1
                         {
                             if (reading_number)
                             {
-                                finalize_number();
+                                add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
+                                print_num_box(number_boxes.size() - 1);
+                                cur_number = 0;
+                                cur_num_len = 0;
+                                cur_num_x = 0;
+                                cur_num_y = 0;
+                                reading_number = false;
                             }
                             add_symbol(c, char_count, line_count);
                             print_symbol(symbols.size() - 1);
@@ -196,7 +235,13 @@ namespace day_3_part_1
                     }
                     if (reading_number)
                     {
-                        finalize_number();
+                        add_num_box(cur_number, cur_num_len, cur_num_x, cur_num_y);
+                        print_num_box(number_boxes.size() - 1);
+                        cur_number = 0;
+                        cur_num_len = 0;
+                        cur_num_x = 0;
+                        cur_num_y = 0;
+                        reading_number = false;
                     }
                     line_count++;
                 }
@@ -222,12 +267,23 @@ namespace day_3_part_1
             if (number_boxes[i].touched)
             {
                 total += number_boxes[i].number;
-                std::cout << "Number " << number_boxes[i].number << " at x:" << number_boxes[i].x << " y:" << number_boxes[i].y << " is touched.\n";
+                //std::cout << "Number " << number_boxes[i].number << " at x:" << number_boxes[i].x << " y:" << number_boxes[i].y << " is touched.\n";
             }
         }
 
         std::cout << "Sum of numbers touched: " << total << std::endl;
 
+        u_int32_t gear_total = 0;
+        for(auto symbol : symbols)
+        {
+            if(symbol.numbers.size() == 2)
+            {
+                std::cout << "Gear ratio: " << symbol.numbers[0] << " * " << symbol.numbers[1] << " = " << symbol.numbers[0] * symbol.numbers[1] << "\n";
+                gear_total += symbol.numbers[0] * symbol.numbers[1];
+            }
+        }
+
+        std::cout << "Total gear ratio: " << gear_total << "\n";
         return;
     }
 }
