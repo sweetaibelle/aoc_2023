@@ -4,7 +4,7 @@
 int main()
 {
     constexpr u_int8_t day = 8;
-    constexpr u_int8_t part = 1;
+    constexpr u_int8_t part = 2;
 
     std::cout << std::format("Day {} Part {}\n", day, part);
 
