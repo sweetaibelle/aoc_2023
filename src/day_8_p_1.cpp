@@ -43,6 +43,7 @@
 // To begin, get your puzzle input.
 
 #include "util/util.h"
+#include <map>
 
 namespace day_8
 {
@@ -50,13 +51,21 @@ namespace day_8
     {
         void run()
         {
+            std::map<std::string, std::pair<std::string, std::string>> nodes;
+
             auto my_file = util::read_file("inputs/day_8.txt");
 
             if (!my_file.empty())
             {
-                for (auto &line : my_file)
+                std::string directions = my_file[0];
+                
+                for(u_int32_t i = 2; i < my_file.size(); i++)
                 {
-                    std::cout << line << std::endl;
+                    nodes[my_file[i].substr(0, 3)] = {my_file[i].substr(7, 3), my_file[i].substr(12, 3)};
+                }
+                for(auto node : nodes)
+                {
+                    std::cout << node.first << " -> " << node.second.first << ", " << node.second.second << "\n";
                 }
             }
         }

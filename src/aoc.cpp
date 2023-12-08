@@ -3,8 +3,8 @@
 
 int main()
 {
-    constexpr u_int8_t day = 7;
-    constexpr u_int8_t part = 2;
+    constexpr u_int8_t day = 8;
+    constexpr u_int8_t part = 1;
 
     std::cout << std::format("Day {} Part {}\n", day, part);
 
@@ -98,10 +98,10 @@ int main()
             switch(part)
             {
                 case 1: // Done.
-                    day_7::part_1::run();
+                    day_8::part_1::run();
                     break;
                 case 2:
-                    day_7::part_2::run();
+                    day_8::part_2::run();
                     break;
             }
             break;
